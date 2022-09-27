@@ -4,14 +4,17 @@ import { useState } from "react";
 import flipIcon from "./assets/img/setinha.png";
 
 export default function Main(props) {
-  const {completedCounter,completeCard} = props;
+  const { completedCounter, completeCard, deckArrayState, changeLayoutCard } =
+    props;
   function FlashCard(props) {
     const { question, answer, index } = props;
-    const [cardState, setCardState] = useState("begin");
-    switch (cardState) {
+    switch (deckArrayState[index]) {
       case "begin":
         return (
-          <CardInicio key={index} onClick={() => setCardState("question")}>
+          <CardInicio
+            key={index}
+            onClick={() => changeLayoutCard(index, "question")}
+          >
             Pergunta {index + 1}
             <ion-icon name="play-outline"></ion-icon>
           </CardInicio>
@@ -25,10 +28,10 @@ export default function Main(props) {
                 src={flipIcon}
                 alt="flip down icon"
                 onClick={() => {
-                  completeCard(completedCounter + 1)
-                  setCardState("answer")}
-                }
-                  />
+                  changeLayoutCard(index, "answer");
+                  completeCard(completedCounter + 1);
+                }}
+              />
             </div>
           </CardQuestion>
         );
@@ -54,7 +57,7 @@ export default function Main(props) {
 // Styled components
 
 const MainStyle = styled.main`
-  margin-top: 24vw;
+  margin: 24vw 0 70px 0;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
