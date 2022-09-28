@@ -9,9 +9,12 @@ import deck from "./deck";
 
 
 export default function App() {
-  const deckArrayAux = [];
+  let deckArrayAux = [];
   deck.forEach(() => deckArrayAux.push("begin"));
   const [deckArrayState, setCardState] = useState(deckArrayAux);
+  deckArrayAux = [];
+  deck.forEach(() => deckArrayAux.push("none"));
+  const [resultArray, setResultArray] = useState(deckArrayAux);
   const [completedCounter, completeCard] = useState(0);
 
   function changeLayoutCard(index, newState){
@@ -20,6 +23,13 @@ export default function App() {
     setCardState(arrayAux)
   }
 
+  function changeResultArray(index, newState){
+    const arrayAux = [...resultArray];
+    arrayAux[index] = newState;
+    setResultArray(arrayAux)
+  }
+
+console.log(resultArray);
   return (
     <div className="pai-de-todos">
       <ResetStyle />
@@ -30,6 +40,8 @@ export default function App() {
         completeCard={completeCard}
         deckArrayState={deckArrayState}
         changeLayoutCard={changeLayoutCard}
+        resultArray={resultArray}
+        changeResultArray={changeResultArray}
       />
       <Footer completedCounter={completedCounter} />
     </div>
