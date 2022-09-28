@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import deck from "./deck";
 import errorIcon from "./assets/img/icone_erro.png";
 import almostIcon from "./assets/img/icone_quase.png";
 import checkIcon from "./assets/img/icone_certo.png";
 
-export default function Footer({ completedCounter, resultArray }) {
+export default function Footer({ completedCounter, resultArray, deck}) {
   function displayFooterIcon(result) {
     switch (result) {
       case "Não lembrei":
@@ -15,7 +14,6 @@ export default function Footer({ completedCounter, resultArray }) {
         return checkIcon;
     }
   }
-  console.log(resultArray);
   return (
     <FooterStyle>
       <div>

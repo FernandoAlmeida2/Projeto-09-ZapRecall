@@ -12,7 +12,7 @@ const deck = [
     answer: "letra maiúscula",
   },
   {
-    question: " Podemos colocar __ dentro do JSX",
+    question: "Podemos colocar __ dentro do JSX",
     answer: "expressões",
   },
   {

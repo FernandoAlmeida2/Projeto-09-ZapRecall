@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import logo from "./assets/img/logo.png";
 
-export default function MenuLogin({changeMenu}) {
+export default function MenuLogin({ changeMenu, deckSelected, setDeck }) {
   return (
     <MenuStyle>
       <img src={logo} alt={"logo"} />
       <h1>ZapRecall</h1>
+      <select value={deckSelected} onChange={(e) => setDeck(e.target.value)}>
+        <option value="">Escolha seu deck</option>
+        <option value="React">React</option>
+        <option value="One Piece">One Piece</option>
+      </select>
       <button onClick={() => changeMenu("principal")}>Iniciar Recall!</button>
     </MenuStyle>
   );

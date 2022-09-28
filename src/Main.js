@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import deck from "./deck";
 import { useState } from "react";
 import flipIcon from "./assets/img/seta_virar.png";
 import playIcon from "./assets/img/seta_play.png";
@@ -15,6 +14,7 @@ export default function Main(props) {
     changeLayoutCard,
     resultArray,
     changeResultArray,
+    deck
   } = props;
 
   function displayIcon(index){
