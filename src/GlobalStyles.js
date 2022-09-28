@@ -10,15 +10,14 @@ const GlobalStyles = createGlobalStyle`
         --cor-zap: #2FBE34;
         --preto: #333333;
     }
-
-    body {
-        width: 100vw;
-        height: 100vh;
-        color: var(--preto);
-        font-family: 'Recursive', sans-serif;
+    body{
+        width: 100%;
+        height: 100%;
         background-color: var(--cor-fundo);
-        /* font-family: 'Righteous', cursive; */
-        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `;
 
 export default GlobalStyles;

@@ -7,6 +7,7 @@ import { useState } from "react";
 import deckReact from "./deckReact";
 import deckOnePiece from "./deckOnePiece";
 import MenuLogin from "./MenuLogin";
+import styled from "styled-components";
 
 function getDeck(option) {
   if (option === "React") {
@@ -41,7 +42,7 @@ export default function App() {
 
   if (menuSelector === "home") {
     return (
-      <div>
+      <Body>
         <ResetStyle />
         <GlobalStyles />
         <MenuLogin
@@ -49,11 +50,11 @@ export default function App() {
           deckSelected={deckSelected}
           setDeck={setDeck}
         />
-      </div>
+      </Body>
     );
   }
   return (
-    <div>
+    <Body>
       <ResetStyle />
       <GlobalStyles />
       <Header />
@@ -66,9 +67,19 @@ export default function App() {
         changeResultArray={changeResultArray}
         deck={deck}
       />
-      <Footer completedCounter={completedCounter} resultArray={resultArray} deck={deck} />
-    </div>
+      <Footer
+        completedCounter={completedCounter}
+        resultArray={resultArray}
+        deck={deck}
+      />
+    </Body>
   );
 }
 
 // Styled components
+
+const Body = styled.div`
+    color: var(--preto);
+    font-family: "Recursive", sans-serif;
+    /* font-family: 'Righteous', cursive; */
+`;

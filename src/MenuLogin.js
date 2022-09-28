@@ -30,7 +30,7 @@ const MenuStyle = styled.div`
   background-color: var(--cor-fundo);
 
   h1 {
-    margin: 8vw 0;
+    margin: 30px 0;
     font-family: "Righteous", cursive;
     font-size: 36px;
     color: white;
@@ -45,7 +45,7 @@ const MenuStyle = styled.div`
     border: 1px;
     font-size: 18px;
     cursor: pointer;
-    margin-top: 4vw;
+    margin-top: 20px;
   }
 
   button:hover {

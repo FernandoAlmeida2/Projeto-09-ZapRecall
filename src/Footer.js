@@ -11,7 +11,7 @@ export default function Footer({ completedCounter, resultArray, deck}) {
       case "Quase não lembrei":
         return almostIcon;
       default:
-        return checkIcon;
+        return checkIcon; 
     }
   }
   return (
@@ -35,10 +35,11 @@ export default function Footer({ completedCounter, resultArray, deck}) {
 const FooterStyle = styled.footer`
   position: fixed;
   bottom: 0;
+  left: 0;
   background-color: white;
   z-index: 1;
   width: 100%;
-  min-height: 70px;
+  height: 70px;
   font-size: 18px;
   color: black;
   position: fixed;

@@ -14,11 +14,11 @@ export default function Main(props) {
     changeLayoutCard,
     resultArray,
     changeResultArray,
-    deck
+    deck,
   } = props;
 
-  function displayIcon(index){
-    switch(resultArray[index]){
+  function displayIcon(index) {
+    switch (resultArray[index]) {
       case "Não lembrei":
         return errorIcon;
       case "Quase não lembrei":
@@ -128,13 +128,17 @@ function resultColorEffect(value) {
 }
 
 const MainStyle = styled.main`
-  margin: 80px 0;
-  height: 100%;
+
   overflow-y: auto;
+  margin: 100px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CardInicio = styled.section`
@@ -152,7 +156,6 @@ const CardInicio = styled.section`
   margin: 10px 0px;
   padding: 10px 10px;
   cursor: pointer;
-
 
   img {
     width: 23px;
