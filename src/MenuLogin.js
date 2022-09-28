@@ -28,9 +28,9 @@ const MenuStyle = styled.div`
   z-index: 1;
   position: absolute;
   background-color: var(--cor-fundo);
-  gap: 8vw;
 
   h1 {
+    margin: 8vw 0;
     font-family: "Righteous", cursive;
     font-size: 36px;
     color: white;
@@ -45,9 +45,18 @@ const MenuStyle = styled.div`
     border: 1px;
     font-size: 18px;
     cursor: pointer;
+    margin-top: 4vw;
   }
 
   button:hover {
     background-color: #cea2a0;
+  }
+
+  select{
+    width: 246px;
+    height: 43px;
+    color: #adadad;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
   }
 `;
