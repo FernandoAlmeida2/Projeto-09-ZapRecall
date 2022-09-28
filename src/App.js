@@ -29,7 +29,6 @@ export default function App() {
     setResultArray(arrayAux)
   }
 
-console.log(resultArray);
   return (
     <div className="pai-de-todos">
       <ResetStyle />

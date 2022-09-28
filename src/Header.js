@@ -36,4 +36,8 @@ const HeaderStyle = styled.header`
     justify-content: space-between;
     width: 256px;
   }
+
+  img{
+    width: 52px;
+  }
 `;

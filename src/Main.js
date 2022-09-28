@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import deck from "./deck";
 import { useState } from "react";
-import flipIcon from "./assets/img/setinha.png";
+import flipIcon from "./assets/img/seta_virar.png";
+import playIcon from "./assets/img/seta_play.png";
+import errorIcon from "./assets/img/icone_erro.png";
+import almostIcon from "./assets/img/icone_quase.png";
+import checkIcon from "./assets/img/icone_certo.png"
 
 export default function Main(props) {
   const {
@@ -12,6 +16,20 @@ export default function Main(props) {
     resultArray,
     changeResultArray,
   } = props;
+
+  function displayIcon(index){
+    switch(resultArray[index]){
+      case "Não lembrei":
+        return errorIcon;
+      case "Quase não lembrei":
+        return almostIcon;
+      case "Zap!":
+        return checkIcon;
+      default:
+        return playIcon;
+    }
+  }
+
   function FlashCard(props) {
     const { question, answer, index } = props;
     switch (deckArrayState[index]) {
@@ -22,7 +40,7 @@ export default function Main(props) {
             result={resultArray[index]}
           >
             Pergunta {index + 1}
-            <ion-icon name="play-outline"></ion-icon>
+            <img src={displayIcon(index)} alt={displayIcon(index)} />
           </CardInicio>
         );
       case "question":
@@ -120,7 +138,7 @@ const MainStyle = styled.main`
 
 const CardInicio = styled.section`
   width: 300px;
-  height: 50px;
+  height: 65px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -129,13 +147,13 @@ const CardInicio = styled.section`
   text-decoration: ${(props) =>
     props.result === "none" ? "none" : "line-through"};
   border-radius: 5px;
+  font-weight: 700;
   margin: 10px 0px;
   padding: 10px 10px;
   cursor: pointer;
-  font-family: "Recursive", cursive;
 
-  ion-icon {
-    color: var(--preto);
+
+  img {
     width: 23px;
     height: 23px;
   }
