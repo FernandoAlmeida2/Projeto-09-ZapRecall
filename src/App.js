@@ -52,7 +52,7 @@ export default function App() {
         resultArray={resultArray}
         changeResultArray={changeResultArray}
       />
-      <Footer completedCounter={completedCounter} />
+      <Footer completedCounter={completedCounter} resultArray={resultArray} />
     </div>
   );
 }
