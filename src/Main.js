@@ -5,7 +5,7 @@ import flipIcon from "./assets/img/seta_virar.png";
 import playIcon from "./assets/img/seta_play.png";
 import errorIcon from "./assets/img/icone_erro.png";
 import almostIcon from "./assets/img/icone_quase.png";
-import checkIcon from "./assets/img/icone_certo.png"
+import checkIcon from "./assets/img/icone_certo.png";
 
 export default function Main(props) {
   const {
@@ -145,7 +145,7 @@ const CardInicio = styled.section`
   background-color: white;
   color: ${(props) => resultColorEffect(props.result)};
   text-decoration: ${(props) =>
-    props.result === "none" ? "none" : "line-through"};
+    props.result === "none" ? "none" : "line-through 2px"};
   border-radius: 5px;
   font-weight: 700;
   margin: 10px 0px;

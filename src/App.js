@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import ResetStyle from "./GlobalResetStyle";
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
@@ -30,6 +29,8 @@ export default function App() {
     arrayAux[index] = newState;
     setResultArray(arrayAux)
   }
+
+
   if(menuSelector === "home"){
     return(
       <div>
