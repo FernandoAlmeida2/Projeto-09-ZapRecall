@@ -128,7 +128,7 @@ function resultColorEffect(value) {
 }
 
 const MainStyle = styled.main`
-  margin-bottom: 70px;
+  margin: 80px 0;
   height: 100%;
   overflow-y: auto;
   display: flex;
