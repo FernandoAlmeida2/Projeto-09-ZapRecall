@@ -6,9 +6,11 @@ import Main from "./Main";
 import Footer from "./Footer";
 import { useState } from "react";
 import deck from "./deck";
+import MenuLogin from "./MenuLogin";
 
 
 export default function App() {
+  const [menuSelector, changeMenu] = useState("home");
   let deckArrayAux = [];
   deck.forEach(() => deckArrayAux.push("begin"));
   const [deckArrayState, setCardState] = useState(deckArrayAux);
@@ -28,9 +30,17 @@ export default function App() {
     arrayAux[index] = newState;
     setResultArray(arrayAux)
   }
-
-  return (
-    <div className="pai-de-todos">
+  if(menuSelector === "home"){
+    return(
+      <div>
+        <ResetStyle />
+        <GlobalStyles />
+        <MenuLogin changeMenu={changeMenu} />
+      </div>
+    );
+  }
+    return (
+    <div>
       <ResetStyle />
       <GlobalStyles />
       <Header />
