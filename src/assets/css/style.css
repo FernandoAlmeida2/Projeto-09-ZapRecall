@@ -1,4 +1,4 @@
-/* estilos gerais da aplicação */
+
 
 .flashcard {
   width: 300px;
@@ -31,33 +31,33 @@
 }
 
 
-.flashcard.aberto {
+/* .flashcard.aberto {
   min-height: 130px;
   display: flex;
   flex-direction: column;
   background-color: var(--cor-fundo-card);
   cursor: default;
   padding: 20px 10px;
-}
+} */
 
-.aberto div {
+/* .aberto div {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-}
+} */
 
 
 
-.aberto.resposta div {
+/* .aberto.resposta div {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.aberto img {
+/* .aberto img {
   cursor: pointer;
-}
+} */
 
 .action {
   display: flex;

@@ -21,18 +21,9 @@ export default function App() {
   const [deckSelected, setDeck] = useState("none");
   let deckArrayAux = [];
   const deck = getDeck(deckSelected);
-  deck.forEach(() => deckArrayAux.push("begin"));
-  const [deckArrayState, setCardState] = useState(deckArrayAux);
-  deckArrayAux = [];
   deck.forEach(() => deckArrayAux.push("none"));
   const [resultArray, setResultArray] = useState(deckArrayAux);
-  const [completedCounter, completeCard] = useState(0);
-
-  function changeLayoutCard(index, newState) {
-    const arrayAux = [...deckArrayState];
-    arrayAux[index] = newState;
-    setCardState(arrayAux);
-  }
+  const [completedCounter, setCompletedCard] = useState(0);
 
   function changeResultArray(index, newState) {
     const arrayAux = [...resultArray];
@@ -40,6 +31,9 @@ export default function App() {
     setResultArray(arrayAux);
   }
 
+  function increaseCompletedCounter(){
+    setCompletedCard(completedCounter + 1);
+  }
   if (menuSelector === "home") {
     return (
       <Body>
@@ -59,10 +53,7 @@ export default function App() {
       <GlobalStyles />
       <Header />
       <Main
-        completedCounter={completedCounter}
-        completeCard={completeCard}
-        deckArrayState={deckArrayState}
-        changeLayoutCard={changeLayoutCard}
+        increaseCompletedCounter={increaseCompletedCounter}
         resultArray={resultArray}
         changeResultArray={changeResultArray}
         deck={deck}
@@ -81,5 +72,4 @@ export default function App() {
 const Body = styled.div`
     color: var(--preto);
     font-family: "Recursive", sans-serif;
-    /* font-family: 'Righteous', cursive; */
 `;
