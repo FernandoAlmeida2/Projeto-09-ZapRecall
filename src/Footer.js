@@ -3,27 +3,27 @@ import errorIcon from "./assets/img/icone_erro.png";
 import almostIcon from "./assets/img/icone_quase.png";
 import checkIcon from "./assets/img/icone_certo.png";
 
-export default function Footer({ completedCounter, resultArray, deck}) {
-  function displayFooterIcon(result) {
+export default function Footer({ completedCounter, resultArray, total }) {
+  function FooterIcon(result) {
     switch (result) {
       case "Não lembrei":
         return errorIcon;
       case "Quase não lembrei":
         return almostIcon;
       default:
-        return checkIcon; 
+        return checkIcon;
     }
   }
   return (
     <FooterStyle>
-      <div>
-        {completedCounter}/{deck.length} CONCLUÍDOS
+      <div data-identifier="flashcard-counter">
+        {completedCounter}/{total} CONCLUÍDOS
       </div>
       <div>
         {resultArray
           .filter((r) => r !== "none")
           .map((r, i) => (
-            <img key={i} src={displayFooterIcon(r)} alt={displayFooterIcon(r)} />
+            <img key={i} src={FooterIcon(r)} alt={FooterIcon(r)} />
           ))}
       </div>
     </FooterStyle>

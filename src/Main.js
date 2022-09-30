@@ -1,23 +1,17 @@
 import styled from "styled-components";
 import FlashCard from "./Flashcard";
 
-export default function Main({
-  increaseCompletedCounter,
-  resultArray,
-  changeResultArray,
-  deck,
-}) {
+export default function Main({ addCompletedCounter, resultArray, deck }) {
   function finishActionCard(index, chosenOption) {
-    changeResultArray(index, chosenOption);
-    increaseCompletedCounter();
+    resultArray[index] = chosenOption;
+    addCompletedCounter();
   }
   return (
     <MainStyle>
       {deck.map((card, index) => (
         <FlashCard
           key={index}
-          question={card.question}
-          answer={card.answer}
+          card={card}
           index={index}
           result={resultArray[index]}
           finishActionCard={finishActionCard}

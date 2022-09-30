@@ -6,6 +6,12 @@ import almostIcon from "./assets/img/icone_quase.png";
 import checkIcon from "./assets/img/icone_certo.png";
 import { useState } from "react";
 
+const actions = [
+  { action: "Não lembrei", id: "forgot-btn" },
+  { action: "Quase não lembrei", id: "almost-forgot-btn" },
+  { action: "Zap!", id: "zap-btn" },
+];
+
 function displayIcon(result) {
   switch (result) {
     case "Não lembrei":
@@ -19,28 +25,27 @@ function displayIcon(result) {
   }
 }
 
-export default function FlashCard({
-  question,
-  answer,
-  index,
-  result,
-  finishActionCard,
-}) {
+export default function FlashCard({ card, index, result, finishActionCard }) {
+  const { question, answer } = card;
   const [cardState, setCardState] = useState("begin");
 
-  function finishAndGoBackToBeginCard(index, chosenOption) {
+  function chosenAction(index, chosenOption) {
     finishActionCard(index, chosenOption);
     setCardState("begin");
   }
   switch (cardState) {
     case "begin":
       return (
-        <CardInicio
-          onClick={() => (result === "none" ? setCardState("question") : "")}
-          result={result}
-        >
+        <CardInicio data-identifier="flashcard-index-item" result={result}>
           Pergunta {index + 1}
-          <img src={displayIcon(result)} alt={displayIcon(result)} />
+          <img
+            data-identifier={
+              result === "none" ? "flashcard-show-btn" : "flashcard-status"
+            }
+            src={displayIcon(result)}
+            alt={displayIcon(result)}
+            onClick={() => (result === "none" ? setCardState("question") : "")}
+          />
         </CardInicio>
       );
     case "question":
@@ -49,6 +54,7 @@ export default function FlashCard({
           {question}
           <div>
             <img
+              data-identifier="flashcard-turn-btn"
               src={flipIcon}
               alt="flip down icon"
               onClick={() => setCardState("answer")}
@@ -58,29 +64,19 @@ export default function FlashCard({
       );
     case "answer":
       return (
-        <CardAnswer>
+        <CardAnswer data-identifier="flashcard-answer">
           {answer}
           <div>
-            <ActionButton
-              value="Não lembrei"
-              onClick={() => finishAndGoBackToBeginCard(index, "Não lembrei")}
-            >
-              Não lembrei
-            </ActionButton>
-            <ActionButton
-              value="Quase não lembrei"
-              onClick={() =>
-                finishAndGoBackToBeginCard(index, "Quase não lembrei")
-              }
-            >
-              Quase não lembrei
-            </ActionButton>
-            <ActionButton
-              value="Zap!"
-              onClick={() => finishAndGoBackToBeginCard(index, "Zap!")}
-            >
-              Zap!
-            </ActionButton>
+            {actions.map((a) => (
+              <ActionButton
+                key={a.id}
+                data-identifier={a.id}
+                value={a.action}
+                onClick={() => chosenAction(index, a.action)}
+              >
+                {a.action}
+              </ActionButton>
+            ))}
           </div>
         </CardAnswer>
       );
@@ -118,11 +114,11 @@ const CardInicio = styled.section`
   font-weight: 700;
   margin: 10px 0px;
   padding: 10px 10px;
-  cursor: pointer;
 
   img {
     width: 23px;
     height: 23px;
+    cursor: pointer;
   }
 `;
 const CardQuestion = styled.div`

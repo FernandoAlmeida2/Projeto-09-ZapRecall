@@ -8,6 +8,9 @@ import deckReact from "./deckReact";
 import deckOnePiece from "./deckOnePiece";
 import MenuLogin from "./MenuLogin";
 import styled from "styled-components";
+const resultArray = []
+let resultarrayCreated = false;
+const deckList = ["React", "One Piece"];
 
 function getDeck(option) {
   if (option === "React") {
@@ -17,59 +20,48 @@ function getDeck(option) {
 }
 
 export default function App() {
-  const [menuSelector, changeMenu] = useState("home");
   const [deckSelected, setDeck] = useState("none");
-  let deckArrayAux = [];
-  const deck = getDeck(deckSelected);
-  deck.forEach(() => deckArrayAux.push("none"));
-  const [resultArray, setResultArray] = useState(deckArrayAux);
   const [completedCounter, setCompletedCard] = useState(0);
 
-  function changeResultArray(index, newState) {
-    const arrayAux = [...resultArray];
-    arrayAux[index] = newState;
-    setResultArray(arrayAux);
+  function addCompletedCounter() {
+    setCompletedCard((prev) => prev + 1);
   }
-
-  function increaseCompletedCounter(){
-    setCompletedCard(completedCounter + 1);
-  }
-  if (menuSelector === "home") {
+  if (deckSelected === "none") {
     return (
       <Body>
         <ResetStyle />
         <GlobalStyles />
-        <MenuLogin
-          changeMenu={changeMenu}
-          deckSelected={deckSelected}
-          setDeck={setDeck}
+        <MenuLogin setDeck={setDeck} deckList={deckList} />
+      </Body>
+    );
+  } else {
+    if(!resultarrayCreated){
+      getDeck(deckSelected).forEach(() => resultArray.push("none"));
+      resultarrayCreated = true;
+    }
+    return (
+      <Body>
+        <ResetStyle />
+        <GlobalStyles />
+        <Header />
+        <Main
+          addCompletedCounter={addCompletedCounter}
+          resultArray={resultArray}
+          deck={getDeck(deckSelected)}
+        />
+        <Footer
+          completedCounter={completedCounter}
+          resultArray={resultArray}
+          total={getDeck(deckSelected).length}
         />
       </Body>
     );
   }
-  return (
-    <Body>
-      <ResetStyle />
-      <GlobalStyles />
-      <Header />
-      <Main
-        increaseCompletedCounter={increaseCompletedCounter}
-        resultArray={resultArray}
-        changeResultArray={changeResultArray}
-        deck={deck}
-      />
-      <Footer
-        completedCounter={completedCounter}
-        resultArray={resultArray}
-        deck={deck}
-      />
-    </Body>
-  );
 }
 
 // Styled components
 
 const Body = styled.div`
-    color: var(--preto);
-    font-family: "Recursive", sans-serif;
+  color: var(--preto);
+  font-family: "Recursive", sans-serif;
 `;
