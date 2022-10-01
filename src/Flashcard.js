@@ -25,13 +25,14 @@ function displayIcon(result) {
   }
 }
 
-export default function FlashCard({ card, index, result, finishActionCard }) {
+export default function FlashCard({ card, index, result, finishActionCard, ifAllAnswered }) {
   const { question, answer } = card;
   const [cardState, setCardState] = useState("begin");
 
   function chosenAction(index, chosenOption) {
     finishActionCard(index, chosenOption);
     setCardState("begin");
+    ifAllAnswered();
   }
   switch (cardState) {
     case "begin":

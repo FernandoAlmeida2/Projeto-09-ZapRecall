@@ -8,9 +8,14 @@ import deckReact from "./deckReact";
 import deckOnePiece from "./deckOnePiece";
 import MenuLogin from "./MenuLogin";
 import styled from "styled-components";
-const resultArray = []
+import EndingMenu from "./EndingMenu";
+const resultArray = [];
 let resultarrayCreated = false;
-const deckList = ["React", "One Piece"];
+const deckList = [
+  { name: "React", size: deckReact.length },
+  { name: "One Piece", size: deckOnePiece.length },
+];
+let zapsGoal = 0;
 
 function getDeck(option) {
   if (option === "React") {
@@ -22,40 +27,65 @@ function getDeck(option) {
 export default function App() {
   const [deckSelected, setDeck] = useState("none");
   const [completedCounter, setCompletedCard] = useState(0);
+  const [layout, changeLayout] = useState("home");
 
   function addCompletedCounter() {
     setCompletedCard((prev) => prev + 1);
   }
-  if (deckSelected === "none") {
-    return (
-      <Body>
-        <ResetStyle />
-        <GlobalStyles />
-        <MenuLogin setDeck={setDeck} deckList={deckList} />
-      </Body>
-    );
-  } else {
-    if(!resultarrayCreated){
-      getDeck(deckSelected).forEach(() => resultArray.push("none"));
-      resultarrayCreated = true;
-    }
-    return (
-      <Body>
-        <ResetStyle />
-        <GlobalStyles />
-        <Header />
-        <Main
-          addCompletedCounter={addCompletedCounter}
-          resultArray={resultArray}
-          deck={getDeck(deckSelected)}
-        />
-        <Footer
-          completedCounter={completedCounter}
-          resultArray={resultArray}
-          total={getDeck(deckSelected).length}
-        />
-      </Body>
-    );
+
+  switch (layout) {
+    case "home":
+      return (
+        <Body>
+          <ResetStyle />
+          <GlobalStyles />
+          <MenuLogin
+            setDeck={setDeck}
+            deckList={deckList}
+            zapsGoal={zapsGoal}
+            changeLayout={changeLayout}
+          />
+        </Body>
+      );
+    case "principal":
+      if (!resultarrayCreated) {
+        getDeck(deckSelected).forEach(() => resultArray.push("none"));
+        resultarrayCreated = true;
+      }
+      return (
+        <Body>
+          <ResetStyle />
+          <GlobalStyles />
+          <Header />
+          <Main
+            addCompletedCounter={addCompletedCounter}
+            resultArray={resultArray}
+            deck={getDeck(deckSelected)}
+            changeLayout={changeLayout}
+          />
+          <Footer
+            completedCounter={completedCounter}
+            resultArray={resultArray}
+            total={getDeck(deckSelected).length}
+          />
+        </Body>
+      );
+    case "Ending message":
+      return(
+        <Body>
+          <ResetStyle />
+          <GlobalStyles />
+          <EndingMenu
+            resultArray={resultArray}                  
+            zapsGoal={zapsGoal}
+          />
+        </Body>
+
+      )
+    default:
+      return(
+        <h1>Deu merda!</h1>
+      )
   }
 }
 

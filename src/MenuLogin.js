@@ -1,8 +1,26 @@
 import styled from "styled-components";
 import logo from "./assets/img/logo.png";
 
-export default function MenuLogin({ setDeck, deckList }) {
+export default function MenuLogin({ setDeck, deckList, zapsGoal, changeLayout }) {
   let optionSelected = "";
+  function verifyOptions() {
+    if (
+      deckList.filter((d) => d.name === optionSelected && zapsGoal <= d.size)
+        .length === 1
+    ) {
+      if (zapsGoal > 0) {
+        setDeck(optionSelected);
+        changeLayout("principal");
+      } else {
+        alert("Meta de zaps deve ser maior ou igual a 1");
+      }
+    } else {
+      alert(
+        "deck não selecionado ou meta de zaps maior do que o tamanho do deck"
+      );
+    }
+  }
+
   return (
     <MenuStyle>
       <img src={logo} alt={"logo"} />
@@ -11,20 +29,21 @@ export default function MenuLogin({ setDeck, deckList }) {
         <option data-identifier="deck-selector" value="">
           Escolha seu deck
         </option>
-        {deckList.map((deckName) => (
-          <option key={deckName} data-identifier="deck-option" value={deckName}>
-            {deckName}
+        {deckList.map((deck) => (
+          <option
+            key={deck.name}
+            data-identifier="deck-option"
+            value={deck.name}
+          >
+            {deck.name}
           </option>
         ))}
       </select>
-      <button
-        data-identifier="start-btn"
-        onClick={() =>
-          optionSelected !== ""
-            ? setDeck(optionSelected)
-            : alert("deck não selecionado")
-        }
-      >
+      <input
+        placeholder="Digite sua meta de zaps..."
+        onChange={(e) => (zapsGoal = e.target.value)}
+      ></input>
+      <button data-identifier="start-btn" onClick={verifyOptions}>
         Iniciar Recall!
       </button>
     </MenuStyle>
@@ -51,6 +70,31 @@ const MenuStyle = styled.div`
     color: white;
   }
 
+  select {
+    width: 246px;
+    height: 43px;
+    color: #adadad;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    padding: 5px;
+  }
+  input {
+    margin-top: 20px;
+    width: 246px;
+    height: 43px;
+    color: #d70900;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    border-radius: 5px;
+    border: 1px;
+    padding: 10px;
+
+    ::placeholder {
+      opacity: 1;
+      color: #adadad;
+    }
+  }
+
   button {
     width: 246px;
     height: 54px;
@@ -65,13 +109,5 @@ const MenuStyle = styled.div`
 
   button:hover {
     background-color: #cea2a0;
-  }
-
-  select {
-    width: 246px;
-    height: 43px;
-    color: #adadad;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
   }
 `;

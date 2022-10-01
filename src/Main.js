@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import FlashCard from "./Flashcard";
 
-export default function Main({ addCompletedCounter, resultArray, deck }) {
+export default function Main({ addCompletedCounter, resultArray, deck, changeLayout }) {
+
   function finishActionCard(index, chosenOption) {
     resultArray[index] = chosenOption;
     addCompletedCounter();
   }
+
+  function ifAllAnswered (){
+    if(resultArray.filter((r) => r === "none").length === 0){
+      changeLayout("Ending message");
+    }
+  }
+
   return (
     <MainStyle>
       {deck.map((card, index) => (
@@ -15,6 +23,7 @@ export default function Main({ addCompletedCounter, resultArray, deck }) {
           index={index}
           result={resultArray[index]}
           finishActionCard={finishActionCard}
+          ifAllAnswered={ifAllAnswered}
         />
       ))}
     </MainStyle>
