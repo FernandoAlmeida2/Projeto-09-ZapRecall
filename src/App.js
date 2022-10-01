@@ -9,13 +9,13 @@ import deckOnePiece from "./deckOnePiece";
 import MenuLogin from "./MenuLogin";
 import styled from "styled-components";
 import EndingMenu from "./EndingMenu";
+
 const resultArray = [];
 let resultarrayCreated = false;
 const deckList = [
   { name: "React", size: deckReact.length },
   { name: "One Piece", size: deckOnePiece.length },
 ];
-let zapsGoal = 0;
 
 function getDeck(option) {
   if (option === "React") {
@@ -28,11 +28,20 @@ export default function App() {
   const [deckSelected, setDeck] = useState("none");
   const [completedCounter, setCompletedCard] = useState(0);
   const [layout, changeLayout] = useState("home");
+  const[zapsGoal, setZapsGoal] = useState(0);
+
+  function restartRecallApp(){
+    resultArray.splice(0, resultArray.length);
+    resultarrayCreated = false;
+    setDeck("none");
+    setCompletedCard(0);
+    changeLayout("home");
+    setZapsGoal(0);
+  }
 
   function addCompletedCounter() {
     setCompletedCard((prev) => prev + 1);
   }
-
   switch (layout) {
     case "home":
       return (
@@ -42,7 +51,7 @@ export default function App() {
           <MenuLogin
             setDeck={setDeck}
             deckList={deckList}
-            zapsGoal={zapsGoal}
+            setZapsGoal={setZapsGoal}
             changeLayout={changeLayout}
           />
         </Body>
@@ -78,6 +87,7 @@ export default function App() {
           <EndingMenu
             resultArray={resultArray}                  
             zapsGoal={zapsGoal}
+            restartRecallApp={restartRecallApp}
           />
         </Body>
 

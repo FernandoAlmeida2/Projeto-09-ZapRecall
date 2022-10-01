@@ -11,7 +11,9 @@ export default function Main({ addCompletedCounter, resultArray, deck, changeLay
   function ifAllAnswered (){
     if(resultArray.filter((r) => r === "none").length === 0){
       changeLayout("Ending message");
+      return true;
     }
+    return false;
   }
 
   return (

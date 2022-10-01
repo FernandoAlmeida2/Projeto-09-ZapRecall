@@ -1,16 +1,23 @@
 import styled from "styled-components";
 import logo from "./assets/img/logo.png";
 
-export default function MenuLogin({ setDeck, deckList, zapsGoal, changeLayout }) {
+export default function MenuLogin({
+  setDeck,
+  deckList,
+  setZapsGoal,
+  changeLayout,
+}) {
   let optionSelected = "";
+  let zapsGoalAux;
   function verifyOptions() {
     if (
-      deckList.filter((d) => d.name === optionSelected && zapsGoal <= d.size)
+      deckList.filter((d) => d.name === optionSelected && zapsGoalAux <= d.size)
         .length === 1
     ) {
-      if (zapsGoal > 0) {
+      if (zapsGoalAux > 0) {
         setDeck(optionSelected);
         changeLayout("principal");
+        setZapsGoal(zapsGoalAux);
       } else {
         alert("Meta de zaps deve ser maior ou igual a 1");
       }
@@ -25,8 +32,8 @@ export default function MenuLogin({ setDeck, deckList, zapsGoal, changeLayout })
     <MenuStyle>
       <img src={logo} alt={"logo"} />
       <h1>ZapRecall</h1>
-      <select onChange={(e) => (optionSelected = e.target.value)}>
-        <option data-identifier="deck-selector" value="">
+      <select onChange={(e) => (optionSelected = e.target.value)} data-identifier="deck-selector" >
+        <option value="">
           Escolha seu deck
         </option>
         {deckList.map((deck) => (
@@ -40,8 +47,9 @@ export default function MenuLogin({ setDeck, deckList, zapsGoal, changeLayout })
         ))}
       </select>
       <input
+        data-identifier="goals-input"
         placeholder="Digite sua meta de zaps..."
-        onChange={(e) => (zapsGoal = e.target.value)}
+        onChange={(e) => (zapsGoalAux = e.target.value)}
       ></input>
       <button data-identifier="start-btn" onClick={verifyOptions}>
         Iniciar Recall!

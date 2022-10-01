@@ -4,7 +4,7 @@ import playIcon from "./assets/img/seta_play.png";
 import errorIcon from "./assets/img/icone_erro.png";
 import almostIcon from "./assets/img/icone_quase.png";
 import checkIcon from "./assets/img/icone_certo.png";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const actions = [
   { action: "Não lembrei", id: "forgot-btn" },
@@ -28,11 +28,17 @@ function displayIcon(result) {
 export default function FlashCard({ card, index, result, finishActionCard, ifAllAnswered }) {
   const { question, answer } = card;
   const [cardState, setCardState] = useState("begin");
+  const cardRef = useRef();
 
   function chosenAction(index, chosenOption) {
     finishActionCard(index, chosenOption);
     setCardState("begin");
-    ifAllAnswered();
+    if(!ifAllAnswered()){
+      cardRef.current.scrollIntoView({ behavior: 'smooth' })
+    } 
+      
+
+
   }
   switch (cardState) {
     case "begin":
@@ -45,14 +51,14 @@ export default function FlashCard({ card, index, result, finishActionCard, ifAll
             }
             src={displayIcon(result)}
             alt={displayIcon(result)}
-            onClick={() => (result === "none" ? setCardState("question") : "")}
+            onClick={() => (result === "none" && setCardState("question"))}
           />
         </CardInicio>
       );
     case "question":
       return (
         <CardQuestion>
-          {question}
+          <span>{question}</span>
           <div>
             <img
               data-identifier="flashcard-turn-btn"
@@ -65,14 +71,14 @@ export default function FlashCard({ card, index, result, finishActionCard, ifAll
       );
     case "answer":
       return (
-        <CardAnswer data-identifier="flashcard-answer">
-          {answer}
+        <CardAnswer ref={cardRef}>
+          <span data-identifier="flashcard-answer" >{answer}</span>    
           <div>
             {actions.map((a) => (
               <ActionButton
                 key={a.id}
                 data-identifier={a.id}
-                value={a.action}
+                value={a.action}               
                 onClick={() => chosenAction(index, a.action)}
               >
                 {a.action}
